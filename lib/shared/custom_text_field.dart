@@ -42,6 +42,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           return 'please fill ${widget.hint}';
         }
         null;
+        return null;
       },
       obscureText: _obscureText,
       decoration: InputDecoration(
