@@ -20,55 +20,57 @@ class SignupView extends StatelessWidget {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         backgroundColor: AppColors.primary,
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Form(
-              key: formKey,
-              child: Column(
-                children: [
-                  Gap(100),
-                  // logo
-                  SvgPicture.asset('assets/logo/logo.svg'),
-                  Gap(60),
-                  // text fiedl name
-                  CustomTextField(
-                    hint: 'Name',
-                    isPassword: false,
-                    controller: nameController,
-                  ),
-                  Gap(15),
-                  //text field email
-                  CustomTextField(
-                    hint: 'Email Address',
-                    isPassword: false,
-                    controller: emailController,
-                  ),
-                  Gap(15),
-                  // text field password
-                  CustomTextField(
-                    hint: 'Password',
-                    isPassword: true,
-                    controller: passwordController,
-                  ),
-                  Gap(15),
-                  // confirm password
-                  CustomTextField(
-                    hint: 'Confirm Password',
-                    isPassword: true,
-                    controller: confirmPasswordController,
-                  ),
-                  Gap(25),
-                  // button sign up
-                  CustomAuthButton(
-                    text: 'Sign up',
-                    onTap: () {
-                      if (formKey.currentState!.validate()) {
-                        print('success register');
-                      }
-                    },
-                  ),
-                ],
+        body: SingleChildScrollView(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    Gap(100),
+                    // logo
+                    SvgPicture.asset('assets/logo/logo.svg'),
+                    Gap(60),
+                    // text fiedl name
+                    CustomTextField(
+                      hint: 'Name',
+                      isPassword: false,
+                      controller: nameController,
+                    ),
+                    Gap(15),
+                    //text field email
+                    CustomTextField(
+                      hint: 'Email Address',
+                      isPassword: false,
+                      controller: emailController,
+                    ),
+                    Gap(15),
+                    // text field password
+                    CustomTextField(
+                      hint: 'Password',
+                      isPassword: true,
+                      controller: passwordController,
+                    ),
+                    Gap(15),
+                    // confirm password
+                    CustomTextField(
+                      hint: 'Confirm Password',
+                      isPassword: true,
+                      controller: confirmPasswordController,
+                    ),
+                    Gap(25),
+                    // button sign up
+                    CustomAuthButton(
+                      text: 'Sign up',
+                      onTap: () {
+                        if (formKey.currentState!.validate()) {
+                          print('success register');
+                        }
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

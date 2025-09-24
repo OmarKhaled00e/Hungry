@@ -17,11 +17,14 @@ class CustomAuthButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(7),
           color: Colors.white,
         ),
-        child: CustomText(
-          text: text,
-          size: 15,
-          weight: FontWeight.w500,
-          color: AppColors.primary,
+        child: Center(
+          child: CustomText(
+            text: text,
+
+            size: 15,
+            weight: FontWeight.w500,
+            color: AppColors.primary,
+          ),
         ),
       ),
     );

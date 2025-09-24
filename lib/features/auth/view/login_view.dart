@@ -54,6 +54,7 @@ class LoginView extends StatelessWidget {
                   // button loagin
                   CustomAuthButton(
                     text: 'Login',
+
                     onTap: () {
                       if (_formkey.currentState!.validate()) {
                         print('success login');
