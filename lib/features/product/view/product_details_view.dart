@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:hungry/core/constants/app_colors.dart';
 import 'package:hungry/features/product/widgets/spicy_slider.dart';
 import 'package:hungry/features/product/widgets/topping_card.dart';
 import 'package:hungry/shared/custom_button.dart';
