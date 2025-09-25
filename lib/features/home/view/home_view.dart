@@ -4,6 +4,7 @@ import 'package:hungry/features/home/widgets/card_Item.dart';
 import 'package:hungry/features/home/widgets/food_catgory.dart';
 import 'package:hungry/features/home/widgets/search_field.dart';
 import 'package:hungry/features/home/widgets/user_header.dart';
+import 'package:hungry/features/product/view/product_details_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -31,19 +32,17 @@ class _HomeViewState extends State<HomeView> {
               toolbarHeight: 200,
               automaticallyImplyLeading: false,
               flexibleSpace: Padding(
-                padding: const EdgeInsets.only(
-                  right: 20,
-                  left: 20,
-                  top: 38,
-
-                ),
-                child: Column(children: [UserHeader(),Gap(20), SearchField()]),
+                padding: const EdgeInsets.only(right: 20, left: 20, top: 38),
+                child: Column(children: [UserHeader(), Gap(20), SearchField()]),
               ),
             ),
             //category
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15,
+                  vertical: 5,
+                ),
                 child: FoodCategory(
                   selectedIndex: selectedIndex,
                   category: category,
@@ -58,11 +57,23 @@ class _HomeViewState extends State<HomeView> {
                   context,
                   index,
                 ) {
-                  return CardItem(
-                    image: 'assets/test/test.png',
-                    text: 'Cheese Burger',
-                    description: 'With extra cheese',
-                    rate: '4.5',
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return ProductDetailsView();
+                          },
+                        ),
+                      );
+                    },
+                    child: CardItem(
+                      image: 'assets/test/test.png',
+                      text: 'Cheese Burger',
+                      description: 'With extra cheese',
+                      rate: '4.5',
+                    ),
                   );
                 }),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
