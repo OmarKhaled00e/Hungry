@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hungry/core/constants/app_colors.dart';
+import 'package:hungry/shared/custom_text.dart';
 
 class ToppingCard extends StatelessWidget {
   const ToppingCard({
@@ -18,31 +20,22 @@ class ToppingCard extends StatelessWidget {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(15),
-          child: Container(
-            width: 110,
-            height: 85,
-            color: Color(0xff3C2F2F),
-            child: Column(mainAxisSize: MainAxisSize.min, children: [
-       
-              ],
-            ),
-          ),
+          child: Container(height: 85, width: 100, color: AppColors.primary),
         ),
-
         Positioned(
           top: -40,
-          right: -5,
-          left: -5,
+          right: -1,
+          left: -1,
           child: SizedBox(
-            height: 90,
-            width: 100,
-            child: Card(
+            height: 70,
+            child: Material(
+              elevation: 2,
+              borderRadius: BorderRadius.circular(15),
               color: Colors.white,
               child: Image.asset(imageUrl, fit: BoxFit.contain),
             ),
           ),
         ),
-
         Positioned(
           left: 0,
           right: 0,
@@ -52,15 +45,12 @@ class ToppingCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
+                CustomText(
+                  text: title,
+                  color: Colors.white,
+                  size: 14,
+                  weight: FontWeight.w600,
                 ),
-
                 GestureDetector(
                   onTap: onAdd,
                   child: CircleAvatar(

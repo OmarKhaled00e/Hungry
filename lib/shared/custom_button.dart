@@ -16,6 +16,7 @@ class CustomButton extends StatelessWidget {
   final double? width;
   final double? height;
   final Color? color;
+  
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -27,6 +28,7 @@ class CustomButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: color ?? AppColors.primary,
           borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.white),
         ),
         child: Center(
           child: CustomText(text: text, color: Colors.white),
