@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
 import 'package:hungry/core/constants/app_colors.dart';
-import 'package:hungry/root.dart';
+import 'package:hungry/features/auth/view/login_view.dart';
 
 
 
@@ -51,7 +51,7 @@ class _SplashViewState extends State<SplashView>
       const Duration(seconds: 3),
       () => Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (c) => const Root()),
+        MaterialPageRoute(builder: (c) => const LoginView()),
       ),
     );
   }

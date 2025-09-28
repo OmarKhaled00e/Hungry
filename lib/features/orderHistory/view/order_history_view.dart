@@ -24,32 +24,34 @@ class OrderHistoryView extends StatelessWidget {
                   horizontal: 25,
                   vertical: 20,
                 ),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Image.asset('assets/test/test.png', width: 100),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomText(
-                              text: 'Humburger',
-                              weight: FontWeight.bold,
-                            ),
-                            CustomText(text: 'Qty: X3'),
-                            CustomText(text: 'Price: 20\$'),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Gap(20),
-                    CustomButton(
-                      text: 'Order Again',
-                      color: Colors.grey.shade400,
-                      width: double.infinity,
-                    ),
-                  ],
+                child: Flexible(
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Image.asset('assets/test/test.png', width: 100),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomText(
+                                text: 'Humburger',
+                                weight: FontWeight.bold,
+                              ),
+                              CustomText(text: 'Qty: X3'),
+                              CustomText(text: 'Price: 20\$'),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Gap(20),
+                      CustomButton(
+                        text: 'Order Again',
+                        color: Colors.grey.shade400,
+                        width: double.infinity,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );
