@@ -1,31 +1,66 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:hungry/core/constants/app_colors.dart';
+import 'package:hungry/core/network/api_error.dart';
+import 'package:hungry/features/auth/data/auth_repo.dart';
 import 'package:hungry/features/auth/view/signup_view.dart';
 import 'package:hungry/features/auth/widgets/custom_auth_button.dart';
 import 'package:hungry/root.dart';
+import 'package:hungry/shared/custom_snack.dart';
 import 'package:hungry/shared/custom_text.dart';
 import 'package:hungry/shared/custom_text_field.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
   const LoginView({super.key});
 
   @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
+  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  bool isLoading = false;
+  AuthRepo authRepo = AuthRepo();
+  Future<void> login() async {
+    if (formkey.currentState!.validate()) {
+      setState(() => isLoading = true);
+      try {
+        final user = await authRepo.login(
+          emailController.text.trim(),
+          passwordController.text.trim(),
+        );
+
+        if (user != null) {
+          Navigator.push(context, MaterialPageRoute(builder: (c) => Root()));
+        }
+        setState(() => isLoading = false);
+      } catch (e) {
+        setState(() => isLoading = false);
+        String errorMassage = 'unhandied error in login';
+        if (e is ApiError) {
+          errorMassage = e.message;
+        }
+        ScaffoldMessenger.of(context).showSnackBar(customSnack(errorMassage));
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    TextEditingController emailController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
-    final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         backgroundColor: Colors.white,
         body: Center(
           child: Form(
-            key: _formkey,
+            key: formkey,
             child: Column(
               children: [
-                Gap(200),
+                Gap(150),
                 // logo
                 SvgPicture.asset(
                   'assets/logo/logo.svg',
@@ -69,23 +104,21 @@ class LoginView extends StatelessWidget {
                           ),
                           Gap(30),
                           // button loagin
-                          CustomAuthButton(
-                            color: AppColors.primary,
-                            textColor: Colors.white,
-                            text: 'Login',
-                            onTap: () {
-                              if (_formkey.currentState!.validate()) {
-                                print('success login');
-                              }
-                            },
-                          ),
+                          isLoading
+                              ? CupertinoActivityIndicator(color: Colors.white)
+                              : CustomAuthButton(
+                                  color: AppColors.primary,
+                                  textColor: Colors.white,
+                                  text: 'Login',
+                                  onTap: login,
+                                ),
                           Gap(15),
                           // go to signup
                           CustomAuthButton(
                             text: 'Create Account',
                             color: Colors.white,
                             onTap: () {
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                   builder: (c) {

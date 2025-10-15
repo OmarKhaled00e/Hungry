@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:hungry/core/constants/app_colors.dart';
+import 'package:hungry/features/auth/view/login_view.dart';
 import 'package:hungry/features/auth/widgets/custom_user_text_field.dart';
 import 'package:hungry/shared/custom_text.dart';
 
@@ -136,23 +137,31 @@ class _ProfileViewState extends State<ProfileView> {
                 ),
               ),
               // logout
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(color: AppColors.primary),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Row(
-                  children: [
-                    CustomText(
-                      text: 'Logout',
-                      weight: FontWeight.bold,
-                      color: AppColors.primary,
-                    ),
-                    Gap(5),
-                    Icon(Icons.logout, color: AppColors.primary),
-                  ],
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (c) => LoginView()),
+                  );
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: AppColors.primary),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      CustomText(
+                        text: 'Logout',
+                        weight: FontWeight.bold,
+                        color: AppColors.primary,
+                      ),
+                      Gap(5),
+                      Icon(Icons.logout, color: AppColors.primary),
+                    ],
+                  ),
                 ),
               ),
             ],
