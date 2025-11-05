@@ -10,13 +10,14 @@ class CustomButton extends StatelessWidget {
     this.width,
     this.color,
     this.height,
+    this.radius,
   });
   final String text;
   final Function()? onTap;
   final double? width;
   final double? height;
   final Color? color;
-  
+  final double? radius;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -27,8 +28,7 @@ class CustomButton extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         decoration: BoxDecoration(
           color: color ?? AppColors.primary,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.white),
+          borderRadius: BorderRadius.circular(radius ?? 10),
         ),
         child: Center(
           child: CustomText(text: text, color: Colors.white),

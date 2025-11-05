@@ -3,9 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
 import 'package:hungry/core/constants/app_colors.dart';
+import 'package:hungry/features/auth/data/auth_repo.dart';
 import 'package:hungry/features/auth/view/login_view.dart';
-
-
+import 'package:hungry/root.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -20,6 +20,39 @@ class _SplashViewState extends State<SplashView>
   late Animation<Offset> _slideAnimation;
   late Animation<double> _fadeAnimation;
 
+  AuthRepo authRepo = AuthRepo();
+
+  Future<void> _checkLogin() async {
+    try {
+      final user = await authRepo.autoLogin();
+      if (!mounted) return;
+      if (authRepo.isGuest) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (c) => Root()),
+        );
+      } else if (user != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (c) => Root()),
+        );
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (c) => LoginView()),
+        );
+      }
+    } catch (e) {
+      debugPrint('Auto login failed: $e');
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const LoginView()),
+        );
+      }
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -32,28 +65,16 @@ class _SplashViewState extends State<SplashView>
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 1), // يبدأ من تحت
       end: Offset.zero, // يطلع مكانه الطبيعي
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeOut,
-    ));
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
     _fadeAnimation = Tween<double>(
       begin: 0,
       end: 1,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeIn,
-    ));
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
 
     _controller.forward();
 
-    Future.delayed(
-      const Duration(seconds: 3),
-      () => Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (c) => const LoginView()),
-      ),
-    );
+    Future.delayed(const Duration(seconds: 3), _checkLogin);
   }
 
   @override
@@ -72,18 +93,12 @@ class _SplashViewState extends State<SplashView>
             const Gap(280),
             FadeTransition(
               opacity: _fadeAnimation,
-              child: SvgPicture.asset(
-                'assets/logo/logo.svg',
-                height: 100,
-              ),
+              child: SvgPicture.asset('assets/logo/logo.svg', height: 100),
             ),
             const Spacer(),
             SlideTransition(
               position: _slideAnimation,
-              child: Image.asset(
-                'assets/splash/splash.png',
-                height: 200,
-              ),
+              child: Image.asset('assets/splash/splash.png', height: 200),
             ),
           ],
         ),
