@@ -12,14 +12,16 @@ class CartItem extends StatelessWidget {
     required this.desc,
     this.onAdd,
     this.onMin,
-    this.onRemove, 
+    this.onRemove,
     required this.number,
+    required this.isLoading,
   });
   final String image, text, desc;
   final Function()? onAdd;
   final Function()? onMin;
   final Function()? onRemove;
   final int number;
+  final bool isLoading;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -32,7 +34,7 @@ class CartItem extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(image, width: 100),
+                Image.network(image, width: 100),
                 CustomText(text: text, weight: FontWeight.bold),
                 CustomText(text: desc),
               ],
@@ -50,7 +52,11 @@ class CartItem extends StatelessWidget {
                       ),
                     ),
                     Gap(20),
-                    CustomText(text: number.toString(), weight: FontWeight.w400, size: 20),
+                    CustomText(
+                      text: number.toString(),
+                      weight: FontWeight.w400,
+                      size: 20,
+                    ),
                     Gap(20),
                     GestureDetector(
                       onTap: onMin,
@@ -72,7 +78,9 @@ class CartItem extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Center(
-                      child: CustomText(text: 'Remove', color: Colors.white),
+                      child: isLoading
+                          ? CupertinoActivityIndicator(color: Colors.white)
+                          : CustomText(text: 'Remove', color: Colors.white),
                     ),
                   ),
                 ),

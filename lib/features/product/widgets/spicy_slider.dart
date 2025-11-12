@@ -4,44 +4,61 @@ import 'package:hungry/core/constants/app_colors.dart';
 import 'package:hungry/shared/custom_text.dart';
 
 class SpicySlider extends StatefulWidget {
-  const SpicySlider({super.key, required this.value, required this.onChanged});
+  const SpicySlider({super.key, required this.value, required this.onChanged, required this.img});
   final double value;
   final ValueChanged<double> onChanged;
+  final String img;
 
   @override
   State<SpicySlider> createState() => _SpicySliderState();
 }
 
 class _SpicySliderState extends State<SpicySlider> {
+
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
-        Image.asset('assets/details/details.png', height: 200),
-        Spacer(),
-        Column(
-          children: [
-            CustomText(text: 'Customize Your Burger'),
-            CustomText(text: 'to Your Tastes.'),
-            CustomText(text: 'Ultimate Experience'),
-            Slider(
+        SizedBox(
+          height: 200,
+          width: double.infinity,
+          child: Image.network(widget.img),
+        ),
+
+        Padding(
+          padding:  EdgeInsets.symmetric(horizontal: 40.0),
+          child: SliderTheme(
+            data: SliderTheme.of(context).copyWith(
+              thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 3),
+              overlayShape: const RoundSliderOverlayShape(overlayRadius: 10),
+              trackHeight: 3,
+           ),
+
+            child: Slider(
               min: 0,
               max: 1,
               value: widget.value,
               onChanged: widget.onChanged,
-              inactiveColor: Colors.grey.shade300,
-              activeColor: AppColors.primary,
+              inactiveColor: Colors.grey.shade900.withOpacity(0.2),
+              activeColor: AppColors.primary.withOpacity(0.7),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomText(text: '🥶'),
-                Gap(100),
-                CustomText(text: '🌶️'),
-              ],
-            ),
-          ],
+          ),
         ),
+
+
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 53),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CustomText(text: 'Cold 🥶', weight:  FontWeight.bold,size: 12,),
+              Gap(100),
+              CustomText(text: '🌶️ Hot', weight: FontWeight.bold, size: 12,),
+            ],
+          ),
+        ),
+
+
       ],
     );
   }

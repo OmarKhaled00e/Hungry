@@ -6,8 +6,12 @@ import 'package:hungry/core/constants/app_colors.dart';
 import 'package:hungry/shared/custom_text.dart';
 
 class UserHeader extends StatelessWidget {
-  const UserHeader({super.key});
-
+  const UserHeader({
+    super.key,
+    required this.userName,
+    required this.userImage,
+  });
+  final String userName, userImage;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -25,7 +29,7 @@ class UserHeader extends StatelessWidget {
             ),
             Gap(5),
             CustomText(
-              text: 'Hello, Rich Sonic',
+              text: userName,
               size: 16,
               weight: FontWeight.w500,
               color: Colors.grey.shade500,
@@ -35,9 +39,18 @@ class UserHeader extends StatelessWidget {
         Spacer(),
         // profile image
         CircleAvatar(
-          radius: 28,
-          child: Icon(CupertinoIcons.person, color: Colors.white),
+          radius: 30,
+
           backgroundColor: AppColors.primary,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(30),
+            child: Image.network(
+              userImage,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) =>
+                  Icon(Icons.person, color: Colors.white),
+            ),
+          ),
         ),
       ],
     );

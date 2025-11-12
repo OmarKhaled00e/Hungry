@@ -6,9 +6,9 @@ class ApiService {
   final DioClient _dioClient = DioClient();
   // crud methods
   // get
-  Future<dynamic> get(String endPoint) async {
+  Future<dynamic> get(String endPoint, {dynamic param}) async {
     try {
-      final response = await _dioClient.dio.get(endPoint);
+      final response = await _dioClient.dio.get(endPoint, queryParameters: param);
       return response.data;
     } on DioError catch (e) {
       return ApiExceptions.handleError(e);
@@ -36,9 +36,17 @@ class ApiService {
   }
 
   //delete
-  Future<dynamic> delete(String endPoint, Map<String, dynamic> body) async {
+  Future<dynamic> delete(
+    String endPoint,
+    Map<String, dynamic> body, {
+    dynamic params,
+  }) async {
     try {
-      final response = await _dioClient.dio.delete(endPoint, data: body);
+      final response = await _dioClient.dio.delete(
+        endPoint,
+        data: body,
+        queryParameters: params,
+      );
       return response.data;
     } on DioError catch (e) {
       return ApiExceptions.handleError(e);

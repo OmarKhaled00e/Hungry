@@ -31,7 +31,7 @@ class CardItem extends StatelessWidget {
                   left: 0,
                   child: Image.asset('assets/icon/shadow.png'),
                 ),
-                Center(child: Image.asset(image, width: 120, height: 120)),
+                Center(child: Image.network(image, width: 120, height: 120)),
               ],
             ),
             Gap(15),
